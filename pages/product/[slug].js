@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
-import data from '../../utils/data'
+import db from '../../utils/db'
+import Product from '../../models/Product'
 import Layout from '../components/Layout'
 import NextLink from 'next/link'
 import {
@@ -14,11 +15,12 @@ import {
 import useStyle from '../../utils/styles'
 import Image from 'next/image'
 
-export default function ProductPage() {
+export default function ProductPage(props) {
+  const { product } = props
   const classes = useStyle()
-  const router = useRouter()
-  const { slug } = router.query
-  const product = data.products.find((a) => a.slug === slug)
+  // const router = useRouter()
+  // const { slug } = router.query
+  // const product = data.products.find((a) => a.slug === slug)
   if (!product) {
     return <div>Product Not Found</div>
   }
@@ -98,4 +100,18 @@ export default function ProductPage() {
       </Grid>
     </Layout>
   )
+}
+
+export async function getServerSideProps(context) {
+  const { params } = context
+  const { slug } = params
+
+  await db.connect()
+  const product = await Product.findOne({ slug }).lean()
+  await db.disconnect()
+  return {
+    props: {
+      product: db.convertDocToObj(product),
+    },
+  }
 }
