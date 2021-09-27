@@ -12,9 +12,15 @@ import db from '../utils/db'
 import Product from '../models/Product'
 import LayoutPage from './components/Layout'
 import NextLink from 'next/link'
+// import useStyle from '../utils/styles'
 
 export default function HomePage(props) {
   const { products } = props
+  // const classes = useStyle()
+  // // if (!product) {
+  // //   return <div>Product Not Found</div>
+  // // }
+
   return (
     <LayoutPage>
       <div>
