@@ -16,8 +16,10 @@ import useStyle from '../../utils/styles'
 import Image from 'next/image'
 import { useContext } from 'react'
 import { Store } from '../../utils/Store'
+import { useRouter } from 'next/router'
 
 export default function ProductPage(props) {
+  const router = useRouter()
   const { dispatch } = useContext(Store)
   const { product } = props
   const classes = useStyle()
@@ -34,6 +36,7 @@ export default function ProductPage(props) {
       return
     }
     dispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity: 1 } })
+    router.push('/cart')
   }
   return (
     <Layout title={product.name} description={product.description}>

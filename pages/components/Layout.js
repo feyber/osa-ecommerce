@@ -29,14 +29,14 @@ export default function LayoutPage({ title, children, description }) {
         fontWeight: 700,
         margin: '1rem, 0',
       },
-      h1: {
+      h2: {
         fontSize: '1.4rem',
         fontWeight: 700,
         margin: '1rem, 0',
       },
     },
     pallete: {
-      type: darkMode ? 'dark' : 'light',
+      mode: darkMode ? 'dark' : 'light',
       // type: 'light',
       primary: {
         main: '#f0c000',
